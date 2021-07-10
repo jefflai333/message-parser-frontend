@@ -1,11 +1,11 @@
 
 import './App.css';
-import Home from './Home/index.js';
+import AggregateTable from './Components/aggregateTable.js';
 
 function App() {
   return (
     <div className="App">
-      <Home></Home>
+      <AggregateTable> </AggregateTable>
     </div>
   );
 }

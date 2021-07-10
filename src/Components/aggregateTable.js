@@ -9,43 +9,44 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-class aggregateTable extends React.Component {
-  
-    componentDidMount() {
-      this.apiClient = new APIClient();
-      this.apiClient.getCount().then((data) =>
-        this.setState({...this.state, count: data})
-      );
-    }
+class AggregateTable extends React.Component {
+  state = {
+    count: 0,
+    rows: [],
+  };
 
-    render() {
-      return (
-        // <TableContainer component={Paper}>
-        //   <Table aria-label="simple table">
-        //     <TableHead>
-        //       <TableRow>
-        //         <TableCell>Person You Are Talking To</TableCell>
-        //         <TableCell align="right">Total Number of Messages</TableCell>
-        //         <TableCell align="right">Number of Messages Sent</TableCell>
-        //         <TableCell align="right">Number of Messages Received</TableCell>
-        //       </TableRow>
-        //     </TableHead>
-        //     <TableBody>
-        //       {rows.map((row) => (
-        //         <TableRow key={row.name}>
-        //           <TableCell component="th" scope="row">
-        //             {row.name}
-        //           </TableCell>
-        //           <TableCell align="right">{row.calories}</TableCell>
-        //           <TableCell align="right">{row.fat}</TableCell>
-        //           <TableCell align="right">{row.carbs}</TableCell>
-        //         </TableRow>
-        //       ))}
-        //     </TableBody>
-        //   </Table>
-        // </TableContainer>
-        null
-      );
-    }
+  componentDidMount() {
+    this.apiClient = new APIClient();
+    this.apiClient.getCount().then((data) =>
+      this.setState({ ...this.state, count: data["count"] })
+    );
+  }
+
+  render() {
+    let row = { "count": this.state.count }
+    return (
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Person You Are Talking To</TableCell>
+              <TableCell align="right">Total Number of Messages</TableCell>
+              <TableCell align="right">Number of Messages Sent</TableCell>
+              <TableCell align="right">Number of Messages Received</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              </TableCell>
+              <TableCell align="right">{row.count}</TableCell>
+              <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 }
-export default aggregateTable;
+export default AggregateTable;
