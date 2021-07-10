@@ -12,18 +12,25 @@ import Paper from '@material-ui/core/Paper';
 class AggregateTable extends React.Component {
   state = {
     count: 0,
-    rows: [],
+    title: "",
+    received_messages: 0,
+    sent_messages: 0,
   };
 
   componentDidMount() {
     this.apiClient = new APIClient();
     this.apiClient.getCount().then((data) =>
-      this.setState({ ...this.state, count: data["count"] })
+      this.setState({
+        ...this.state,
+        count: data["count"],
+        title: data["title"],
+        received_messages: data["received_messages"],
+        sent_messages: data["sent_messages"]
+      })
     );
   }
 
   render() {
-    let row = { "count": this.state.count }
     return (
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
@@ -38,10 +45,11 @@ class AggregateTable extends React.Component {
           <TableBody>
             <TableRow>
               <TableCell component="th" scope="row">
+                {this.state.title}
               </TableCell>
-              <TableCell align="right">{row.count}</TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="right">{this.state.count}</TableCell>
+              <TableCell align="right">{this.state.sent_messages}</TableCell>
+              <TableCell align="right">{this.state.received_messages}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
